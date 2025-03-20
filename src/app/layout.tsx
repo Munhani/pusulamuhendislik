@@ -13,6 +13,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <title>Pusula Mühendislik</title>
+        <meta name="description" content="Pusula Mühendislik - Profesyonel Mühendislik Çözümleri" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-XXXXXXXXXX');
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} relative min-h-screen bg-gray-50`}>
         {/* Header */}
         <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm shadow-md z-50">
