@@ -7,15 +7,41 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, phone, message } = body;
 
+    // Veri doğrulama
+    if (!name || !email || !phone || !message) {
+      return NextResponse.json(
+        { message: 'Tüm alanları doldurunuz' },
+        { status: 400 }
+      );
+    }
+
+    // E-posta formatı kontrolü
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { message: 'Geçerli bir e-posta adresi giriniz' },
+        { status: 400 }
+      );
+    }
+
     // Veritabanına kaydet
-    const contact = await prisma.contact.create({
-      data: {
-        name,
-        email,
-        phone,
-        message,
-      },
-    });
+    let contact;
+    try {
+      contact = await prisma.contact.create({
+        data: {
+          name,
+          email,
+          phone,
+          message,
+        },
+      });
+    } catch (dbError) {
+      console.error('Veritabanı hatası:', dbError);
+      return NextResponse.json(
+        { message: 'Veritabanına kayıt yapılırken bir hata oluştu' },
+        { status: 500 }
+      );
+    }
 
     // E-posta gönderme ayarları
     const transporter = nodemailer.createTransport({
@@ -44,7 +70,19 @@ export async function POST(request: Request) {
     };
 
     // E-postayı gönder
-    await transporter.sendMail(mailOptions);
+    try {
+      await transporter.sendMail(mailOptions);
+    } catch (emailError) {
+      console.error('E-posta gönderme hatası:', emailError);
+      // E-posta gönderilemese bile form başarıyla kaydedildiği için 200 dönüyoruz
+      return NextResponse.json(
+        { 
+          message: 'Form kaydedildi ancak e-posta gönderilemedi',
+          contact 
+        },
+        { status: 200 }
+      );
+    }
 
     // Başarılı yanıt döndür
     return NextResponse.json(
