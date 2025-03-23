@@ -1,99 +1,134 @@
 import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 import nodemailer from 'nodemailer';
-import { prisma } from '@/lib/prisma';
+
+const prisma = new PrismaClient();
+
+// CORS ayarları
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+// OPTIONS isteği için handler
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function POST(request: Request) {
   try {
+    console.log('API endpoint çağrıldı');
     const body = await request.json();
-    const { name, email, phone, message } = body;
+    console.log('Gelen veri:', body);
+
+    const { name, email, phone, message, subject } = body;
 
     // Veri doğrulama
-    if (!name || !email || !phone || !message) {
+    if (!name || !email || !phone || !message || !subject) {
+      console.log('Eksik veri:', { name, email, phone, message, subject });
       return NextResponse.json(
-        { message: 'Tüm alanları doldurunuz' },
-        { status: 400 }
+        { error: 'Tüm alanları doldurun' },
+        { status: 400, headers: corsHeaders }
       );
     }
 
-    // E-posta formatı kontrolü
+    // Email formatı kontrolü
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      console.log('Geçersiz email formatı:', email);
       return NextResponse.json(
-        { message: 'Geçerli bir e-posta adresi giriniz' },
-        { status: 400 }
+        { error: 'Geçerli bir email adresi girin' },
+        { status: 400, headers: corsHeaders }
       );
     }
 
-    // Veritabanına kaydet
-    let contact;
+    console.log('Veritabanı bağlantısı test ediliyor...');
     try {
-      contact = await prisma.contact.create({
-        data: {
-          name,
-          email,
-          phone,
-          message,
-        },
-      });
+      await prisma.$connect();
+      console.log('Veritabanı bağlantısı başarılı');
     } catch (dbError) {
-      console.error('Veritabanı hatası:', dbError);
-      return NextResponse.json(
-        { message: 'Veritabanına kayıt yapılırken bir hata oluştu' },
-        { status: 500 }
-      );
+      console.error('Veritabanı bağlantı hatası:', dbError);
+      throw dbError;
     }
 
-    // E-posta gönderme ayarları
+    console.log('Veritabanına kayıt başlıyor...');
+    const contact = await prisma.contact.create({
+      data: {
+        name,
+        email,
+        phone,
+        message,
+        subject,
+      },
+    });
+    console.log('Veritabanı kaydı başarılı:', contact);
+
+    // E-posta gönderimi
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
-      secure: true,
+      secure: false,
       auth: {
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
+        pass: process.env.SMTP_PASS
+      }
     });
 
-    // E-posta içeriği
+    // SMTP bağlantısını test et
+    try {
+      await transporter.verify();
+      console.log('SMTP bağlantısı başarılı');
+    } catch (error) {
+      console.error('SMTP bağlantı hatası:', error);
+      return NextResponse.json(
+        { error: 'E-posta gönderimi başarısız: SMTP bağlantı hatası', details: error instanceof Error ? error.message : 'Bilinmeyen hata' },
+        { status: 500, headers: corsHeaders }
+      );
+    }
+
     const mailOptions = {
       from: process.env.SMTP_USER,
       to: process.env.CONTACT_EMAIL,
       subject: 'Yeni İletişim Formu Mesajı',
       html: `
         <h2>Yeni İletişim Formu Mesajı</h2>
-        <p><strong>Ad Soyad:</strong> ${name}</p>
+        <p><strong>İsim:</strong> ${name}</p>
         <p><strong>E-posta:</strong> ${email}</p>
         <p><strong>Telefon:</strong> ${phone}</p>
-        <p><strong>Mesaj:</strong></p>
-        <p>${message}</p>
-      `,
+        <p><strong>Konu:</strong> ${subject}</p>
+        <p><strong>Mesaj:</strong> ${message}</p>
+        <p><strong>Gönderim Tarihi:</strong> ${new Date().toLocaleString('tr-TR')}</p>
+      `
     };
 
-    // E-postayı gönder
     try {
       await transporter.sendMail(mailOptions);
-    } catch (emailError) {
-      console.error('E-posta gönderme hatası:', emailError);
-      // E-posta gönderilemese bile form başarıyla kaydedildiği için 200 dönüyoruz
+      console.log('E-posta gönderimi başarılı');
+    } catch (error) {
+      console.error('E-posta gönderim hatası:', error);
       return NextResponse.json(
-        { 
-          message: 'Form kaydedildi ancak e-posta gönderilemedi',
-          contact 
-        },
-        { status: 200 }
+        { error: 'E-posta gönderimi başarısız', details: error instanceof Error ? error.message : 'Bilinmeyen hata' },
+        { status: 500, headers: corsHeaders }
       );
     }
 
-    // Başarılı yanıt döndür
     return NextResponse.json(
-      { message: 'Form başarıyla gönderildi', contact },
-      { status: 200 }
+      { message: 'Mesajınız başarıyla gönderildi', contact },
+      { status: 200, headers: corsHeaders }
     );
   } catch (error) {
-    console.error('Form gönderme hatası:', error);
+    console.error('API hatası:', error);
     return NextResponse.json(
-      { message: 'Form gönderilirken bir hata oluştu' },
-      { status: 500 }
+      { error: 'Bir hata oluştu', details: error instanceof Error ? error.message : 'Bilinmeyen hata' },
+      { status: 500, headers: corsHeaders }
     );
+  } finally {
+    try {
+      await prisma.$disconnect();
+      console.log('Veritabanı bağlantısı kapatıldı');
+    } catch (disconnectError) {
+      console.error('Veritabanı bağlantısı kapatılırken hata:', disconnectError);
+    }
   }
 } 
