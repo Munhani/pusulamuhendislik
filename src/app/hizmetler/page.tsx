@@ -25,7 +25,7 @@ export default function HizmetlerPage() {
 
         {/* Altyapı Projeleri */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-blue-900 mb-4">Altyapı Projeleri</h2>
+          <h2 className="text-xl font-semibold text-blue-900 mb-4">Altyapı Projeleri1</h2>
           <ul className="space-y-2 text-gray-600">
             <li>• Yol ve Köprü Projeleri</li>
             <li>• İçme Suyu ve Kanalizasyon</li>
