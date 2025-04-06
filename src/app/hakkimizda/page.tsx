@@ -52,21 +52,21 @@ export default function Hakkimizda() {
           </h2>
           <div className="space-y-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">2010</h3>
+              <h3 className="text-xl font-semibold mb-2">2006</h3>
               <p className="text-gray-600">
                 Pusula Mühendislik kuruldu ve profesyonel mühendislik ve haritacılık hizmetleri sunmaya başladı.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">2015</h3>
+              <h3 className="text-xl font-semibold mb-2">2007</h3>
               <p className="text-gray-600">
-                Şirket büyümesi ve yeni ofis açılışları ile hizmet ağımızı genişlettik.
+                Uluslararası projelerde çalışmaya başladık.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">2020</h3>
+              <h3 className="text-xl font-semibold mb-2">2010</h3>
               <p className="text-gray-600">
-                Modern teknoloji altyapısı ve yeni hizmet alanları ile sektörde öncü konuma ulaştık.
+                Modern teknoloji altyapısı ve yeni hizmet alanları ile sektörde ilerleyen konuma ulaştık.
               </p>
             </div>
           </div>

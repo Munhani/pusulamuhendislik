@@ -11,20 +11,15 @@ export default function HizmetlerPage() {
             <li>• Arazi ve Arsa Ölçümleri</li>
             <li>• GPS ile Hassas Konum Belirleme</li>
             <li>• Topografik Haritalama</li>
-            <li>• Kadastro Çalışmaları</li>
-            <li>• 3D Modelleme ve Görselleştirme</li>
           </ul>
         </div>
 
-        {/* İnşaat ve Yapı Hizmetleri */}
+        {/* Kadastro Hizmetleri */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-blue-900 mb-4">İnşaat ve Yapı Hizmetleri</h2>
+          <h2 className="text-xl font-semibold text-blue-900 mb-4">Kadastro Hizmetleri</h2>
           <ul className="space-y-2 text-gray-600">
-            <li>• Yapı Ruhsatı ve Proje Hazırlama</li>
-            <li>• Statik ve Betonarme Hesapları</li>
-            <li>• Yapı Denetim Hizmetleri</li>
-            <li>• Zemin Etüdü ve Analizi</li>
-            <li>• Yapı Güçlendirme Projeleri</li>
+            <li>• Aplikasyon Hizmetleri</li>
+            <li>• Yola Terk, İfraz, Tevhid İşleri</li>
           </ul>
         </div>
 
@@ -34,34 +29,28 @@ export default function HizmetlerPage() {
           <ul className="space-y-2 text-gray-600">
             <li>• Yol ve Köprü Projeleri</li>
             <li>• İçme Suyu ve Kanalizasyon</li>
-            <li>• Elektrik ve Telekomünikasyon</li>
-            <li>• Peyzaj Düzenlemeleri</li>
-            <li>• Şehir Planlama Çalışmaları</li>
+            <li>• Küçük Sanat Yapıları Projeleri</li>
           </ul>
         </div>
 
-        {/* Endüstriyel Tesisler */}
+        {/*  Kentsel Dönüşüm Hizmetleri */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-blue-900 mb-4">Endüstriyel Tesisler</h2>
+          <h2 className="text-xl font-semibold text-blue-900 mb-4">Kentsel Dönüşüm Hizmetleri</h2>
           <ul className="space-y-2 text-gray-600">
-            <li>• Fabrika ve Depo Projeleri</li>
-            <li>• Endüstriyel Tesis Kurulumu</li>
-            <li>• Makine ve Ekipman Yerleşimi</li>
-            <li>• Üretim Hattı Optimizasyonu</li>
-            <li>• Güvenlik ve İş Güvenliği</li>
+            <li>• Riskli Yapı Tespiti</li>
+            <li>• Deprem Analizi</li>
           </ul>
         </div>
 
-        {/* Çevre ve Sürdürülebilirlik */}
+        {/* Reality Model Hizmetleri */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-blue-900 mb-4">Çevre ve Sürdürülebilirlik</h2>
+          <h2 className="text-xl font-semibold text-blue-900 mb-4">Reality Model Hizmetleri</h2>
           <ul className="space-y-2 text-gray-600">
-            <li>• Çevresel Etki Değerlendirmesi</li>
-            <li>• Enerji Verimliliği Projeleri</li>
-            <li>• Atık Yönetimi Sistemleri</li>
-            <li>• Yeşil Bina Sertifikasyonu</li>
-            <li>• Sürdürülebilir Tasarım</li>
-          </ul>
+            <li>• Drone Fotogrametri</li>
+            <li>• 3D Modelleme</li>
+            <li>• 3D Scan</li>
+            <li>• Nokta Bulutu</li>
+         </ul>
         </div>
 
         {/* Danışmanlık Hizmetleri */}
@@ -70,9 +59,9 @@ export default function HizmetlerPage() {
           <ul className="space-y-2 text-gray-600">
             <li>• Proje Yönetimi</li>
             <li>• Teknik Danışmanlık</li>
-            <li>• Maliyet Analizi</li>
+            <li>• Kadastro Bilirkişiliği</li>
             <li>• Risk Değerlendirmesi</li>
-            <li>• Kalite Kontrol</li>
+
           </ul>
         </div>
       </div>

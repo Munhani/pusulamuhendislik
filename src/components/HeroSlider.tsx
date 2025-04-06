@@ -7,26 +7,26 @@ const slides = [
   {
     id: 1,
     image: '/images/BakuAirport.jpg',
-    title: 'Bakü Havalimanı Projesi',
-    description: 'Modern ve etkileyici havalimanı tasarımı',
+    title: 'Bakü Havalimanı Kavşak Projesi',
+    description: 'Modern ve Etkileyici Yol Tasarımı',
   },
   {
     id: 2,
     image: '/images/BineKavsagi.jpg',
-    title: 'Bine Kavşağı Projesi',
-    description: 'Profesyonel mühendislik çözümleri',
+    title: 'Bine Kavşak Projesi',
+    description: 'Profesyonel Mühendislik Çözümleri',
   },
   {
     id: 3,
     image: '/images/EdirneSirpsindigiKopru.jpg',
-    title: 'Edirne Şirpsindigi Köprüsü',
-    description: 'Mühendislik harikası köprü projesi',
+    title: 'Edirne Sırpsındığı Köprüsü',
+    description: 'Mühendislik Harikası Köprü Projesi',
   },
   {
     id: 4,
     image: '/images/FatihYayaUstGecidi.jpg',
     title: 'Fatih Yaya Üst Geçidi',
-    description: 'Modern şehir ulaşım çözümleri',
+    description: 'Modern Şehir Ulaşım Çözümleri',
   },
 ];
 

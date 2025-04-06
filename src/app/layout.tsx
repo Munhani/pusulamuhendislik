@@ -57,9 +57,6 @@ export default function RootLayout({
                 <Link href="/hizmetler" className="text-gray-700 hover:text-blue-900">
                   Hizmetler
                 </Link>
-                <Link href="/projeler" className="text-gray-700 hover:text-blue-900">
-                  Projeler
-                </Link>
                 <Link href="/iletisim" className="text-gray-700 hover:text-blue-900">
                   İletişim
                 </Link>
@@ -110,11 +107,6 @@ export default function RootLayout({
                     </Link>
                   </li>
                   <li>
-                    <Link href="/projeler" className="hover:text-blue-200 text-sm">
-                      Projeler
-                    </Link>
-                  </li>
-                  <li>
                     <Link href="/iletisim" className="hover:text-blue-200 text-sm">
                       İletişim
                     </Link>
@@ -130,7 +122,7 @@ export default function RootLayout({
                   <a href="#" className="hover:text-blue-200 text-sm">
                     Twitter
                   </a>
-                  <a href="#" className="hover:text-blue-200 text-sm">
+                  <a href="https://www.instagram.com/pusula2006" target="_blank" rel="noopener noreferrer" className="hover:text-blue-200 text-sm">
                     Instagram
                   </a>
                 </div>

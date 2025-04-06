@@ -90,15 +90,6 @@ export default function MobileMenu() {
                 </li>
                 <li>
                   <Link
-                    href="/projeler"
-                    className="block text-lg text-gray-700 hover:text-blue-900"
-                    onClick={closeMenu}
-                  >
-                    Projeler
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     href="/hakkimizda"
                     className="block text-lg text-gray-700 hover:text-blue-900"
                     onClick={closeMenu}
